@@ -9,11 +9,12 @@ export const router = {
    */
   route(method, path, handler) {
     if (handlers[path] && handlers[path][method]) {
-      throw `Handler for ${method} ${path} is exists`;
+      throw `Handler for ${method} '${path}' is exists`;
     }
-    handlers[path] = {
-      [method]: handler
-    };
+    if (!handlers[path]) {
+      handlers[path] = {};
+    }
+    handlers[path][method] = handler;
   },
   /**
    * Handle API call
